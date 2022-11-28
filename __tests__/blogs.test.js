@@ -104,3 +104,6 @@ describe('blog routes', () => {
     expect(resp.status).toBe(401);
   });
 });
+
+// DELETE api/v1/blogs/1/comments/4
+// DELETE api/v1/comments/4
