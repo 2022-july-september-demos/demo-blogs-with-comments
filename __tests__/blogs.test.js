@@ -73,23 +73,34 @@ describe('blog routes', () => {
     `);
   });
 
-  // it('POST /api/v1/blogs/:id/comments should create a new review when logged in', async () => {
-  //   const agent = request.agent(app);
-  //   await UserService.create(mockUser);
-  //   await agent
-  //     .post('/api/v1/users/sessions')
-  //     .send({ email: mockUser.email, password: mockUser.password });
-  //   const resp = await agent
-  //     .post('/api/v1/blogs/1/comments')
-  //     .send({ detail: 'This is a new comment' });
-  //   expect(resp.status).toBe(200);
-  //   expect(resp.body).toMatchInlineSnapshot();
-  // });
+  const registerAndLogin = async () => {
+    const agent = request.agent(app);
+    const user = await UserService.create(mockUser);
+    await agent
+      .post('/api/v1/users/sessions')
+      .send({ email: mockUser.email, password: mockUser.password });
+    return [agent, user];
+  };
 
-  // it('POST /api/v1/blogs/:id/comments should return a 401 if not authenticated', async () => {
-  //   const resp = await request(app)
-  //     .post('/api/v1/blogs/1/comments')
-  //     .send({ detail: 'this should NOT save' });
-  //   expect(resp.status).toBe(401);
-  // });
+  it('POST /api/v1/blogs/:id/comments should create a new review when logged in', async () => {
+    const [agent] = await registerAndLogin();
+    const resp = await agent
+      .post('/api/v1/blogs/1/comments')
+      .send({ detail: 'This is a new comment' });
+    expect(resp.status).toBe(200);
+    expect(resp.body).toMatchInlineSnapshot(`
+      Object {
+        "detail": "This is a new comment",
+        "id": "4",
+        "user_id": "4",
+      }
+    `);
+  });
+
+  it('POST /api/v1/blogs/:id/comments should return a 401 if not authenticated', async () => {
+    const resp = await request(app)
+      .post('/api/v1/blogs/1/comments')
+      .send({ detail: 'this should NOT save' });
+    expect(resp.status).toBe(401);
+  });
 });

@@ -22,8 +22,8 @@ CREATE TABLE blogs (
 
 CREATE TABLE comments (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  user_id BIGINT,
-  blog_id BIGINT,
+  user_id BIGINT NOT NULL,
+  blog_id BIGINT NOT NULL,
   detail VARCHAR NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (blog_id) REFERENCES blogs(id)
