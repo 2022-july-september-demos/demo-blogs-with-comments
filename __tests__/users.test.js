@@ -42,8 +42,6 @@ describe('user routes', () => {
 
     expect(res.body).toEqual({
       id: expect.any(String),
-      firstName,
-      lastName,
       email,
     });
   });

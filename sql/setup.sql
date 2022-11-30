@@ -9,9 +9,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   email VARCHAR,
-  password_hash VARCHAR NOT NULL,
-  first_name VARCHAR NOT NULL,
-  last_name VARCHAR NOT NULL
+  password_hash VARCHAR NOT NULL
 );
 
 CREATE TABLE blogs (
@@ -30,25 +28,19 @@ CREATE TABLE comments (
 );
 
 INSERT INTO
-  users (email, password_hash, first_name, last_name)
+  users (email, password_hash)
 VALUES
   (
     'alvin@example.com',
-    'notarealpasswordhash',
-    'Alvin',
-    'A'
+    'notarealpasswordhash'
   ),
   (
     'bob@example.com',
-    'notarealpasswordhash',
-    'Bob',
-    'B'
+    'notarealpasswordhash'
   ),
   (
     'carole@example.com',
-    'notarealpasswordhash',
-    'Carole',
-    'C'
+    'notarealpasswordhash'
   );
 
 INSERT INTO
